@@ -40,6 +40,11 @@
     <%= form.label :graduation_date, style: "display: block" %>
     <%= form.date_field :graduation_date %>
   </div>
+  
+  <div>
+  <%= form.label :profile_picture, style: "display: block" %>
+  <%= form.file_field :profile_picture %>
+  </div>
 
   <div>
     <%= form.submit %>
