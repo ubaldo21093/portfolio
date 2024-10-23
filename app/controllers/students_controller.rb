@@ -1,15 +1,17 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy ]
-
   # GET /students or /students.json
-  def index
-    @search_params = params[:search] || {}
-    @students = Student.all
-
-    if @search_params[:major].present?
-      @students = @students.where(major: @search_params[:major])
+    def index
+      @search_params = params[:search] || {}
+      if @search_params.empty?
+        @students = []
+      else
+        @students = Student.all
+        if @search_params[:major].present? && @search_params[:major] != "Any Major"
+          @students = @students.where(major: @search_params[:major])
+        end
+      end
     end
-  end
 
   # GET /students/1 or /students/1.json
   def show

@@ -1,24 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Students</h1>
-
-<%= form_with(url: students_path, method: :get, local: true, class: "form-inline") do |form| %>
-  <div>
-    <%= form.label :major, "Select Major", class: "form-label" %>
-    <%= form.select :major, options_for_select(Student::VALID_MAJORS), { prompt: "Any Major" }, name: 'search[major]', class: "form-control" %>
-  </div>
-  <div>
-    <%= form.submit "Search", class: "btn btn-primary" %>
-  </div>
-<% end %>
+<%= render 'search_form', search_params: @search_params %>
 
 <div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
+  <% if @students.empty? %>
+    <% if @search_params.empty? %>
+      <p class="text-center">Search for students to display</p>
+    <% else %>
+      <p class="text-center">No students found</p>
+    <% end %>
+  <% else %>
+    <h1>Students</h1>
+    <% @students.each do |student| %>
+      <%= render student %>
+      <p>
+        <%= link_to "Show this student", student %>
+      </p>
+    <% end %>
   <% end %>
+
+  <%= link_to "Show All", students_path(search: { major: "" }), class: "btn btn-primary" %>
 </div>
 
 <%= link_to "New student", new_student_path %>
