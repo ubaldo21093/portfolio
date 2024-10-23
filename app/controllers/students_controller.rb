@@ -86,8 +86,9 @@ class StudentsController < ApplicationController
       @student = Student.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def student_params
-      params.require(:student).permit(:first_name, :last_name, :school_email, :major, :minor, :graduation_date, :profile_picture)
-    end
+   # Only allow a list of trusted parameters through.
+   def student_params
+    params.require(:student).permit(:first_name, :last_name, :major, :expected_graduation_date, :profile_picture)
+  end
 end
+
